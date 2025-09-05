@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow authenticated users to read and write their own data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Allow authenticated users to read all user profiles (for leaderboard)
+    match /users/{userId} {
+      allow read: if request.auth != null;
+    }
+    
+    // Allow read/write for test documents (for testing purposes)
+    match /test/{document} {
+      allow read, write: if true;
+    }
+    
+    // Game sessions - allow authenticated users to create and read
+    match /gameSessions/{sessionId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Leaderboard data - read access for authenticated users
+    match /leaderboard/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+  }
+}

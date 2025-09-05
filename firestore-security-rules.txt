@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // User profiles - users can read/write their own profile, everyone can read for leaderboard
+    match /users/{userId} {
+      // Users can read and write their own profile
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // All authenticated users can read profiles (for leaderboard display)
+      allow read: if request.auth != null;
+    }
+    
+    // Test documents (for debugging and testing - remove in production)
+    match /test/{document} {
+      allow read, write: if true;
+    }
+    
+    // Game sessions - store individual game results
+    match /gameSessions/{sessionId} {
+      // Only authenticated users can create/read game sessions
+      allow read, write: if request.auth != null;
+      // Optional: restrict to session owner only
+      // allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
+    }
+    
+    // Leaderboard collection - global rankings
+    match /leaderboard/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+    
+    // Game statistics and achievements
+    match /gameStats/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null; // For global stats
+    }
+    
+    // Daily challenges
+    match /dailyChallenges/{challengeId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null; // Users can participate
+    }
+    
+    // User game progress
+    match /userProgress/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Global game settings (read-only for users)
+    match /gameSettings/{document} {
+      allow read: if true; // Public read access
+      allow write: if false; // Only admins can write (set via admin SDK)
+    }
+  }
+}
