@@ -15,6 +15,25 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
+// Debug logging for environment variables
+console.log('🔍 Firebase Config Status:');
+console.log('API Key present:', !!firebaseConfig.apiKey);
+console.log('Auth Domain present:', !!firebaseConfig.authDomain);
+console.log('Project ID present:', !!firebaseConfig.projectId);
+console.log('Storage Bucket present:', !!firebaseConfig.storageBucket);
+console.log('Messaging Sender ID present:', !!firebaseConfig.messagingSenderId);
+console.log('App ID present:', !!firebaseConfig.appId);
+
+// Check if all required config values are present
+const requiredConfig = ['apiKey', 'authDomain', 'projectId'];
+const missingConfig = requiredConfig.filter(key => !firebaseConfig[key]);
+
+if (missingConfig.length > 0) {
+  console.error('❌ Missing Firebase config values:', missingConfig);
+} else {
+  console.log('✅ All required Firebase config values are present');
+}
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
