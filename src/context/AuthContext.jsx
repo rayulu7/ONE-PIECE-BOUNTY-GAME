@@ -25,9 +25,7 @@ export const AuthProvider = ({ children }) => {
   // Sign up function
   const signup = async (email, password, name) => {
     try {
-      console.log('🔄 Starting signup process...');
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('✅ User created in Firebase Auth');
       
       // Check if Firestore is available
       if (!db) {
@@ -35,7 +33,6 @@ export const AuthProvider = ({ children }) => {
       }
       
       // Create user profile in Firestore
-      console.log('🔄 Creating user profile in Firestore...');
       const defaultIcon = getRandomIcon();
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         name,
@@ -45,7 +42,6 @@ export const AuthProvider = ({ children }) => {
         profileImage: '',
         profileIcon: defaultIcon
       });
-      console.log('✅ User profile created in Firestore');
       
       // Update profile
       await updateProfile(userCredential.user, {
@@ -97,23 +93,18 @@ export const AuthProvider = ({ children }) => {
   // Update user profile
   const updateUserProfile = async (userData, profileImage) => {
     try {
-      console.log('🔄 Updating user profile...');
       const userRef = doc(db, 'users', currentUser.uid);
       
       // If there's a new profile image
       if (profileImage) {
-        console.log('🔄 Uploading new profile image...');
-        
         // Get current profile data to delete old image
         const currentProfileDoc = await getDoc(userRef);
         const currentProfile = currentProfileDoc.data();
-        
+
         // Upload new image
         const uploadResult = await imageUploader.uploadImage(profileImage, currentUser.uid);
         userData.profileImage = uploadResult.url;
         userData.profileImagePath = uploadResult.fileName;
-        
-        console.log('✅ Profile image uploaded successfully');
         
         // Update auth profile
         await updateProfile(currentUser, {
@@ -128,7 +119,6 @@ export const AuthProvider = ({ children }) => {
       
       // Update user document
       await setDoc(userRef, userData, { merge: true });
-      console.log('✅ Profile updated in Firestore');
       
       toast.success('Profile updated successfully!');
       
