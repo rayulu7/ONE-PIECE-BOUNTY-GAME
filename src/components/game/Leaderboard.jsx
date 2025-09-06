@@ -84,12 +84,12 @@ const Leaderboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12 px-4">
+    <div className="min-h-screen bg-gray-900 py-8 sm:py-12 px-4 sm:px-6 md:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
           <Link to="/game-modes">
             <motion.button
-              className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg flex items-center"
+              className="bg-gray-800 hover:bg-gray-700 text-white px-3 sm:px-4 py-2 rounded-lg flex items-center text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -98,16 +98,16 @@ const Leaderboard = () => {
             </motion.button>
           </Link>
         </div>
-        
-        <motion.div 
+
+        <motion.div
           className="bg-gray-800 rounded-lg overflow-hidden shadow-xl border-2 border-yellow-500"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="bg-yellow-600 p-6 text-center">
-            <h1 className="text-4xl font-bold text-white">BOUNTY LEADERBOARD</h1>
-            <p className="text-white text-lg mt-2">The Most Wanted Pirates</p>
+          <div className="bg-yellow-600 p-4 sm:p-6 text-center">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">BOUNTY LEADERBOARD</h1>
+            <p className="text-white text-base sm:text-lg mt-2">The Most Wanted Pirates</p>
           </div>
           
           {players.length === 0 ? (

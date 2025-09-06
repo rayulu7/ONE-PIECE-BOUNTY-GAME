@@ -36,7 +36,7 @@ const Signup = () => {
 
   return (
     <motion.div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900/30 to-gray-800 px-4 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900/30 to-gray-800 px-4 sm:px-6 md:px-8 relative overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -68,7 +68,7 @@ const Signup = () => {
 
       <div className="w-full max-w-md relative z-10">
         <motion.div
-          className="bg-gradient-to-br from-gray-800 to-gray-900 shadow-2xl rounded-lg px-8 pt-6 pb-8 mb-4 border-2 border-yellow-500 relative overflow-hidden"
+          className="bg-gradient-to-br from-gray-800 to-gray-900 shadow-2xl rounded-lg px-6 sm:px-8 pt-6 pb-8 mb-4 border-2 border-yellow-500 relative overflow-hidden"
           initial={{ y: -50 }}
           animate={{ y: 0 }}
           transition={{ delay: 0.2, type: 'spring', stiffness: 120 }}

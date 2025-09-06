@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaHome, FaUser, FaTrophy, FaGamepad, FaSignOutAlt, FaCalendarDay } from 'react-icons/fa';
+import { FaHome, FaUser, FaTrophy, FaGamepad, FaSignOutAlt, FaCalendarDay, FaBars, FaTimes } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 
 const Navigation = () => {
   const { currentUser, logout } = useAuth();
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigationItems = [
     { path: '/game-modes', icon: FaHome, label: 'Home' },
@@ -18,6 +19,7 @@ const Navigation = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      setIsMobileMenuOpen(false);
     } catch (error) {
       console.error('Logout error:', error);
     }
@@ -38,7 +40,7 @@ const Navigation = () => {
         backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23fbbf24" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'
       }}
     >
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <motion.div
@@ -53,13 +55,13 @@ const Navigation = () => {
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
-              <FaGamepad className="text-yellow-500 text-2xl mr-2" />
+              <FaGamepad className="text-yellow-500 text-xl sm:text-2xl mr-2" />
             </motion.div>
-            <span className="text-xl font-bold text-yellow-500 font-serif tracking-wider">🏴‍☠️ ONE PIECE BOUNTY</span>
+            <span className="text-base sm:text-lg md:text-xl font-bold text-yellow-500 font-serif tracking-wider">🏴‍☠️ ONE PIECE BOUNTY</span>
           </motion.div>
 
-          {/* Navigation Items */}
-          <div className="flex items-center space-x-2">
+          {/* Desktop Navigation Items */}
+          <div className="hidden md:flex items-center space-x-2">
             {navigationItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
@@ -67,7 +69,7 @@ const Navigation = () => {
               return (
                 <Link key={item.path} to={item.path}>
                   <motion.div
-                    className={`flex items-center px-4 py-2 rounded-lg transition-all duration-300 border ${
+                    className={`flex items-center px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 border ${
                       isActive
                         ? 'bg-gradient-to-r from-yellow-600 to-yellow-500 text-black border-yellow-400 shadow-lg'
                         : 'text-gray-300 hover:bg-gray-700 hover:text-yellow-400 border-transparent hover:border-yellow-500/50'
@@ -88,7 +90,7 @@ const Navigation = () => {
                     >
                       <Icon className="mr-2" />
                     </motion.div>
-                    <span className="font-medium font-serif">{item.label}</span>
+                    <span className="font-medium font-serif hidden lg:inline">{item.label}</span>
                   </motion.div>
                 </Link>
               );
@@ -96,7 +98,7 @@ const Navigation = () => {
 
             {/* User Info & Logout */}
             {currentUser && (
-              <div className="flex items-center space-x-3 border-l border-gray-600 pl-4">
+              <div className="hidden md:flex items-center space-x-3 border-l border-gray-600 pl-4">
                 <span className="text-white text-sm">
                   Welcome, <span className="text-yellow-500">{currentUser.displayName || 'Pirate'}</span>
                 </span>
@@ -112,7 +114,74 @@ const Navigation = () => {
               </div>
             )}
           </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <motion.button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-yellow-500 hover:text-yellow-400 p-2"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            </motion.button>
+          </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <motion.div
+            className="md:hidden bg-gray-800 border-t border-gray-700"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {navigationItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = location.pathname === item.path;
+
+                return (
+                  <Link key={item.path} to={item.path} onClick={() => setIsMobileMenuOpen(false)}>
+                    <motion.div
+                      className={`flex items-center px-3 py-2 rounded-lg transition-all duration-300 ${
+                        isActive
+                          ? 'bg-gradient-to-r from-yellow-600 to-yellow-500 text-black'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-yellow-400'
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Icon className="mr-3" />
+                      <span className="font-medium">{item.label}</span>
+                    </motion.div>
+                  </Link>
+                );
+              })}
+
+              {/* Mobile User Info & Logout */}
+              {currentUser && (
+                <div className="border-t border-gray-600 pt-4 mt-4">
+                  <div className="px-3 py-2">
+                    <span className="text-white text-sm block mb-3">
+                      Welcome, <span className="text-yellow-500">{currentUser.displayName || 'Pirate'}</span>
+                    </span>
+                    <motion.button
+                      onClick={handleLogout}
+                      className="flex items-center w-full px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <FaSignOutAlt className="mr-3" />
+                      <span>Logout</span>
+                    </motion.button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
       </div>
     </motion.nav>
   );

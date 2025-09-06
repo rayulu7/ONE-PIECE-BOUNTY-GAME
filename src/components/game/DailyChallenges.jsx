@@ -169,17 +169,17 @@ const DailyChallenges = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 py-8 px-4">
+    <div className="min-h-screen bg-gray-900 py-6 sm:py-8 px-4 sm:px-6 md:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <motion.div 
-          className="text-center mb-12"
+        <motion.div
+          className="text-center mb-8 sm:mb-12"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-5xl font-black text-yellow-500 mb-4">🗓️ DAILY CHALLENGES</h1>
-          <p className="text-xl text-gray-300 mb-6">{getTodaysDate()}</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-yellow-500 mb-4">🗓️ DAILY CHALLENGES</h1>
+          <p className="text-lg sm:text-xl text-gray-300 mb-6">{getTodaysDate()}</p>
           
           {/* Stats Bar */}
           <div className="flex justify-center space-x-8 mb-8">

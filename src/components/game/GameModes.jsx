@@ -83,23 +83,23 @@ const GameModes = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12 px-4">
+    <div className="min-h-screen bg-gray-900 py-8 sm:py-12 px-4 sm:px-6 md:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-12">
-          <motion.h1 
-            className="text-4xl font-bold text-yellow-500"
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 sm:mb-12 space-y-4 sm:space-y-0">
+          <motion.h1
+            className="text-3xl sm:text-4xl font-bold text-yellow-500"
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
             ONE PIECE GAME MODES
           </motion.h1>
-          
-          <div className="flex items-center space-x-4">
+
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <Link to="/profile">
               <motion.button
-                className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg flex items-center"
+                className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 sm:px-4 py-2 rounded-lg flex items-center text-sm sm:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -107,9 +107,9 @@ const GameModes = () => {
                 Profile
               </motion.button>
             </Link>
-            
+
             <motion.button
-              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center"
+              className="bg-red-600 hover:bg-red-700 text-white px-3 sm:px-4 py-2 rounded-lg flex items-center text-sm sm:text-base"
               onClick={handleLogout}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -156,11 +156,11 @@ const GameModes = () => {
         </motion.div>
         
         {/* Action Buttons */}
-        <div className="mt-12 text-center space-y-4">
-          <div className="flex justify-center space-x-6">
+        <div className="mt-8 sm:mt-12 text-center space-y-4">
+          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 md:space-x-6">
             <Link to="/challenges">
               <motion.button
-                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-3 rounded-lg font-bold text-xl shadow-lg flex items-center"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 sm:px-8 py-3 rounded-lg font-bold text-lg sm:text-xl shadow-lg flex items-center justify-center w-full sm:w-auto"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ x: -50, opacity: 0 }}
@@ -170,10 +170,10 @@ const GameModes = () => {
                 🗓️ DAILY CHALLENGES
               </motion.button>
             </Link>
-            
+
             <Link to="/leaderboard">
               <motion.button
-                className="bg-gradient-to-r from-yellow-600 to-yellow-800 text-white px-8 py-3 rounded-lg font-bold text-xl shadow-lg flex items-center"
+                className="bg-gradient-to-r from-yellow-600 to-yellow-800 text-white px-6 sm:px-8 py-3 rounded-lg font-bold text-lg sm:text-xl shadow-lg flex items-center justify-center w-full sm:w-auto"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ x: 50, opacity: 0 }}
@@ -184,9 +184,9 @@ const GameModes = () => {
               </motion.button>
             </Link>
           </div>
-          
-          <motion.p 
-            className="text-gray-400 text-sm"
+
+          <motion.p
+            className="text-gray-400 text-sm px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.5 }}

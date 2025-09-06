@@ -504,7 +504,7 @@ const EnhancedGameInterface = () => {
                 <p className="text-sm text-gray-400">Berries Earned</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-red-400">{streak}</p>
+                <p className="text-2xl font-bold text-red-400">{gameStreak}</p>
                 <p className="text-sm text-gray-400">Max Streak</p>
               </div>
               <div>
@@ -700,7 +700,7 @@ const EnhancedGameInterface = () => {
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4 text-yellow-500">Who is this character?</h3>
             <motion.div 
-              className="relative w-80 h-80 mx-auto mb-4 overflow-hidden rounded-lg border-4 border-yellow-500"
+              className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto aspect-square mx-auto mb-4 overflow-hidden rounded-lg border-4 border-yellow-500"
               key={currentQuestion}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

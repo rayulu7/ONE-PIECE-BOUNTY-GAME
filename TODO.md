@@ -1,27 +1,39 @@
-# Firebase Auth Debug Steps
+# TODO: Make Rayulu Game Responsive with Enhanced Pirate Theme Animations
 
-## Current Status
-- ✅ Environment variables are correctly loaded in Vercel
-- ❌ Error: "FirebaseError: Firebase: Error (auth/invalid-credential)" persists
-- ✅ Debug logging removed
+## Overview
+Make all visible UI components and pages responsive across all screen sizes (mobile, tablet, desktop) with improved pirate-themed animations and smooth user experience.
 
-## Root Cause Analysis
-The environment variables are present, but Firebase is rejecting the authentication request. This indicates:
-1. API key might be incorrect in Vercel (different from local .env)
-2. Firebase project authentication might be disabled or misconfigured
-3. User credentials might be invalid
+## Components and Pages to Update
+- src/components/ui/
+  - Navigation.jsx
+  - BountyPoster.jsx
+- src/components/auth/
+  - Login.jsx
+  - Signup.jsx
+- src/components/profile/
+  - ProfileSetup.jsx
+  - EnhancedProfile.jsx
+- src/components/game/
+  - GameModes.jsx
+  - GameInterface.jsx
+  - EnhancedGameInterface.jsx
+  - Leaderboard.jsx
+  - DailyChallenges.jsx
+- src/App.jsx (main layout and routing)
+- src/components/ui/Navigation.jsx (responsive container padding update done)
+- src/data/pirateIcons.js (if needed for animation enhancements)
+- src/utils/voiceNavigator.js (if UI related)
+
+## Tasks
+- Audit each component for responsiveness issues.
+- Refactor layouts using Tailwind CSS responsive utilities (e.g., grid-cols, flex-wrap, padding/margin adjustments).
+- Enhance animations with Framer Motion to fit pirate theme and responsiveness.
+- Ensure images and icons scale properly on different screen sizes.
+- Test on mobile, tablet, and desktop viewports.
+- Optimize performance and accessibility where possible.
 
 ## Next Steps
-- [ ] Verify VITE_FIREBASE_API_KEY in Vercel matches local .env exactly
-- [ ] Check Firebase Console > Authentication > Sign-in method is enabled
-- [ ] Ensure the user account exists in Firebase Auth
-- [ ] Test with a newly created user account
-- [ ] Verify Firebase project billing/quota status
-
-## Environment Variables Confirmed in Vercel
-- ✅ VITE_FIREBASE_API_KEY
-- ✅ VITE_FIREBASE_AUTH_DOMAIN
-- ✅ VITE_FIREBASE_PROJECT_ID
-- ✅ VITE_FIREBASE_STORAGE_BUCKET
-- ✅ VITE_FIREBASE_MESSAGING_SENDER_ID
-- ✅ VITE_FIREBASE_APP_ID
+- Start with core UI components: Navigation, BountyPoster, Login, Signup.
+- Proceed to profile and game components.
+- Finalize with app-wide layout and background animations.
+- Provide progress updates and request feedback after major milestones.
